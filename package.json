@@ -23,6 +23,12 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
   },
+        "electronPackagerConfig": {
+        "packageManager": "npm",
+        "icon": "src/images/icon/app_logo",
+        "asar": true,
+        "overwrite": true
+      },
   "config": {
     "forge": {
       "packagerConfig": {},
