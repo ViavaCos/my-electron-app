@@ -1,20 +1,21 @@
-const { app, BrowserWindow, ipcMain, dialog, Menu, MenuItem, Notification, Tray }  = require('electron')
+const { app, BrowserWindow, ipcMain, Menu }  = require('electron')
 const path = require('path')
 
 function createWindow () {
   const win = new BrowserWindow({
     width: 401,
     height: 601,
-    transparent: true, // 透明边框
+    // transparent: true, // 透明边框
     webPreferences: { // 开启网页功能设置
-      nodeIntegration: true, // 是否集成 Nodejs
+      nodeIntegration: false, //是否完整的支持 node. 默认值为true
+      nodeIntegrationInWorker: false,// 是否在Web工作器中启用了Node集成
       preload: path.join(__dirname, 'preload.js')
     },
     resizable: false,
     // useContentSize: true,
     backgroundColor: '#00c297', // 背景颜色
-    opacity: 1, // 窗体透明度 0~1
-    icon: './icon.png', // 应用图标
+    // opacity: 1, // 窗体透明度 0~1
+    // icon: './icon.png', // 应用图标
     frame: false // 设置无边框窗口（无工具栏、边框、其它图形化外壳）
   })
 
@@ -24,6 +25,9 @@ function createWindow () {
       win.close()
     }
   })
+  ipcMain.on('min-app', () => {
+    win.minimize()
+  })
 
   // 创建应用图标
   // const appIcon = new Tray('./icon.png')
@@ -31,7 +35,7 @@ function createWindow () {
   // 设置无工具栏
   Menu.setApplicationMenu(null)
 
-  win.loadFile('./build/index.html')
+  win.loadFile('build/index.html')
   // win.loadFile('index.html')
 
   // win.webContents.on('did-finish-load', () => {
@@ -44,13 +48,13 @@ function createWindow () {
 }
 
 // notification
-function showNotification () {
-  const notification = {
-    title: 'basic notification',
-    body: 'This is a notification.'
-  }
-  new Notification(notification).show()
-}
+// function showNotification () {
+//   const notification = {
+//     title: 'basic notification',
+//     body: 'This is a notification.'
+//   }
+//   new Notification(notification).show()
+// }
 
 app.whenReady().then(() => {
   console.log('start createWindow...')

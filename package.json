@@ -1,7 +1,8 @@
 {
   "name": "my-electron-app",
+  "productName": "vTodos",
   "version": "1.0.0",
-  "description": "This is a test app!",
+  "description": "This is a todos app!",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,15 +24,12 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
   },
-        "electronPackagerConfig": {
-        "packageManager": "npm",
-        "icon": "src/images/icon/app_logo",
-        "asar": true,
-        "overwrite": true
-      },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./build/favicon.ico",
+        "osxSign": true
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
